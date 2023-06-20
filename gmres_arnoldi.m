@@ -1,7 +1,6 @@
 function [x, relres, it, resvec] = gmres_arnoldi(A, b, tol)
     n = size(A, 1);
-    x = rand(n,1);
-    x = x/sum(x);
+    x = zeros(n,1);
     r = b - A * x;
     beta = norm(r);
     resvec = [beta];
