@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+
+\hypersetup{
+	colorlinks = true, % links instead of boxes
+	urlcolor   = cyan, % external hyperlinks
+	linkcolor  = blue, % internal links
+	citecolor  = cyan   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Esercizio}[section]
+\newtheorem*{exercise*}{Esercizio}
+
+\begin{document}
+\section{Analisi della convergenza}
+Dall'esecuzione dell'algoritmo, possiamo osservare che, man mano che $\gamma$ si avvicina ad 1, il numero di iterazioni necessarie alla convergenza aumenta rapidamente; questo
+è dovuto al fatto che, per come è stata definita la matrice $M$, un valore prossimo ad 1 di $\gamma$ significa che la matrice è più lontana dalla matrice identità, e quindi non ha gli
+autovalori concentrati attorno ad 1. Questo non garantisce quindi un buon upper bound per la convergenza di GMRES.
+\end{document}
