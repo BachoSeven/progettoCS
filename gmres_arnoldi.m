@@ -7,7 +7,7 @@ function [x, relres, it, resvec] = gmres_arnoldi(A, b, eps)
 	conv = 0;
 	itmax = 100;
 	V = zeros(n, itmax);
-	H = zeros(itmax);
+	H = zeros(itmax, itmax);
 	V(:, 1) = v1;
 
 	% Iterazione di Arnoldi
