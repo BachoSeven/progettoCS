@@ -16,13 +16,11 @@ function [x, relres, it, resvec] = gmres_arnoldi(A, b, eps)
 		w = A * V(:, j);
 
 		% Ortogonalizzazione di A*v_j
-		for i = 1:j
-			H(i, j) = V(:, i)' * w;
-		end
+		H(1:j, j) = V(:, 1:j)' * w;
 		w = w - V(:,1:j) * H(1:j, j);
 
-		H(j + 1, j) = norm(w);
 		% Normalizzazione del vettore ortogonalizzato
+		H(j + 1, j) = norm(w);
 		V(:, j + 1) = w / H(j + 1, j);
 
 		% Risoluzione del problema ai minimi quadrati

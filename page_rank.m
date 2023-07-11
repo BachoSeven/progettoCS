@@ -1,19 +1,19 @@
 % Carica la matrice
 load coAuthorsDBLP
-A = Problem.A;
+H = Problem.A;
 
 % Parametri
 gamma = [0.5, 0.7, 0.85, 0.99];
 tol = 1e-8;
-n = length(A);
+n = length(H);
 e = ones(n, 1);
-D = spdiags(A * e, 0, n, n);
+D = spdiags(H * e, 0, n, n);
 resvecs = cell(1, length(gamma));
 
 % Risoluzione del sistema lineare tramite GMRES
 for i = 1:length(gamma)
 	b = ((1-gamma(i))/n) * e;
-	M = speye(n) - gamma(i) * A * D^(-1);
+	M = speye(n) - gamma(i) * H * D^(-1);
 	tic;
 	[x, relres, it, resvec] = gmres_arnoldi(M, b, tol);
 	elapsed = toc;
@@ -28,8 +28,7 @@ for i = 1:length(gamma)
 	hold on;
 end
 grid on;
-xlabel('Numero di iterazioni');
-ylabel('Residuo');
-title('Convergenza di GMRES al variare di gamma');
+xlabel('Number of Iterations');
+ylabel('Residual norms');
 legend('show');
 print("convergenza.png");
