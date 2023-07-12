@@ -1,39 +1,39 @@
-function [x, relres, it, resvec] = gmres_arnoldi(A, b, eps)
+function [x, res, it, resvec] = gmres_arnoldi(A, b, eps)
 	n = size(A, 1);
+	maxit = 100;
 	beta = norm(b);
-	v1 = b/beta;
 	resvec = [beta];
-	j = 0;
-	conv = 0;
-	itmax = 100;
-	V = zeros(n, itmax);
-	H = zeros(itmax, itmax);
+	v1 = b/beta;
+	V = zeros(n, maxit);
+	H = zeros(maxit, maxit);
 	V(:, 1) = v1;
 
-	% Iterazione di Arnoldi
-	while (conv == 0 && j < itmax)
+	% Arnoldi iteration
+	conv = 0;
+	j = 0;
+	while (conv == 0 && j < maxit)
 		j = j + 1;
 		w = A * V(:, j);
 
-		% Ortogonalizzazione di A*v_j
+		% Ortogonalization of A*v_j
 		H(1:j, j) = V(:, 1:j)' * w;
 		w = w - V(:,1:j) * H(1:j, j);
 
-		% Normalizzazione del vettore ortogonalizzato
+		% Normalization of the orthogonalized vector
 		H(j + 1, j) = norm(w);
 		V(:, j + 1) = w / H(j + 1, j);
 
-		% Risoluzione del problema ai minimi quadrati
+		% Solving the least-squares problem
 		e1 = zeros(j + 1, 1);
 		e1(1) = beta;
 		y = H(1:j+1,1:j) \ e1;
 
-		% Calcolo del residuo
-		relres = norm(H(1:j+1,1:j) * y - e1);
-		resvec = [resvec; relres];
+		% Computing the residual norm
+		res = norm(H(1:j+1,1:j) * y - e1);
+		resvec = [resvec; res];
 
-		% Controllo della convergenza
-		if relres < eps
+		% Convergence check
+		if res < eps
 			x = V(:,1:j) * y;
 			conv = 1;
 			it = j;
